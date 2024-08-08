@@ -10,9 +10,9 @@ fetch(REST_AUT_USER)
         navbarEmail.innerText = data.email;
 
         let roles = "";
-        data.role.forEach((role) => roles += role.type);
+        data.role.forEach((role) => roles += role.type + " ");
 
-        navbarRoles.innerText = roles
+        navbarRoles.innerText = roles;
 
     })
 
@@ -139,7 +139,7 @@ on(document, 'click', '.btnEdit', async e => {
         edit_Lastname.value = user.lastname;
         edit_Age.value = user.age;
         edit_Email.value = user.email;
-        edit_Password.value = '';
+        edit_Password.value = user.password;
         all_roles_result.then(
             (data) => {
                 //чистим список
@@ -227,6 +227,8 @@ on(document, 'click', '.btnDelete', e => {
         delete_Lastname.value = user.lastname;
         delete_Age.value = user.age;
         delete_Email.value = user.email;
+
+        delete_Roles.options.length = 0;
 
         for (const role of user.role) {
             let option = document.createElement('option');

@@ -10,9 +10,9 @@ fetch(REST_AUT_USER)
         navbarEmail.innerText = data.email;
 
         let roles = "";
-        data.role.forEach((role) => roles += role.type);
+        data.role.forEach((role) => roles += role.type + " ");
 
-        navbarRoles.innerText = roles
+        navbarRoles.innerText = roles;
 
     })
 
@@ -25,7 +25,10 @@ let tmp_users_table = "";
 const updateTable = () => {
     fetch(REST_AUT_USER)
         .then(response => response.json())
-        .then(data => showUsers(data))
+        .then(data => {
+            showUsers(data);
+            checkAccess(data);
+        })
 }
 
 // шаблон таблицы
@@ -55,3 +58,25 @@ const showUsers = (data) => {
 }
 
 updateTable();
+
+
+const nav_Link_Main = document.getElementById('nav-link-main');
+
+const checkAccess =  (data) => {
+
+    let check = false;
+
+    data.role.forEach((r) => {
+        if (r.type === "ROLE_ADMIN") {check=true;}
+    });
+
+    if (!check) {
+        nav_Link_Main.setAttribute('href', '#');
+    }
+
+    nav_Link_Main.addEventListener('click', () => {
+        if(!check) {
+            alert("Доступ к этой странице только у администратора");
+        }
+    })
+}
