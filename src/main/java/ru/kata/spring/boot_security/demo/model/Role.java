@@ -23,6 +23,14 @@ public class Role implements GrantedAuthority {
     }
 
     @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                '}';
+    }
+
+    @Override
     public String getAuthority() {
         return getType();
     }

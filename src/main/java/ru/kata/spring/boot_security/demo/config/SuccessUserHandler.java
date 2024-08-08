@@ -25,5 +25,6 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
         } else {
             httpServletResponse.sendRedirect("/login");
         }
+
     }
 }

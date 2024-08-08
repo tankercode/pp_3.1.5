@@ -42,7 +42,6 @@ public class UsersServiceImp implements  UserService {
 
     @Override
     public void save(User user) {
-
         if (user.getRole() == null) {
             if (roleRepository.findByType("ROLE_USER").isPresent()) {
                 user.setRole(List.of(roleRepository.findByType("ROLE_USER").get()));
@@ -93,6 +92,12 @@ public class UsersServiceImp implements  UserService {
         tmp.setPassword(passwordEncoder.encode(tmp.getPassword()));
         usersRepository.save(tmp);
 
+    }
+
+    @Override
+    public void update(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        usersRepository.save(user);
     }
 
     @Override
